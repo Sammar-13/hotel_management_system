@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h1 class="my-4 text-center">Contact Us</h1>
+        <p class="lead text-center">Have a question or need assistance? Reach out to us!</p>
+
+        <div class="card shadow-sm p-4 mb-5">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger">
+                                    {% for error in field.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary btn-lg w-100">Send Message</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row text-center mt-4">
+            <div class="col-md-4">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <i class="bi bi-geo-alt-fill text-primary display-4 mb-3"></i>
+                        <h5 class="card-title">Address</h5>
+                        <p class="card-text">123 Miramar Street, Singapore, 12345</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <i class="bi bi-phone-fill text-primary display-4 mb-3"></i>
+                        <h5 class="card-title">Phone</h5>
+                        <p class="card-text">+65 1234 5678</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <i class="bi bi-envelope-fill text-primary display-4 mb-3"></i>
+                        <h5 class="card-title">Email</h5>
+                        <p class="card-text">info@hotelmiramar.sg</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

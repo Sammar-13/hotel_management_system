@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ room.room_name }} - Room Details{% endblock %}
+
+{% block content %}
+<style>
+    /* Custom styles for room detail page */
+    .card-booking {
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .card-booking .card-header {
+        background-color: #007bff;
+        color: white;
+        font-size: 1.25rem;
+        font-weight: bold;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+</style>
+
+<div class="row mt-4">
+    <div class="col-md-8">
+        <h1 class="mb-4">{{ room.room_name }} <span class="badge bg-info text-dark">{{ room.room_type }}</span></h1>
+        
+        <!-- Room Main Image -->
+        <div class="mb-4">
+            <img src="{% if room.image %}{{ room.image.url }}{% else %}{% static 'images/default_room_detail.jpg' %}{% endif %}" 
+                 class="img-fluid rounded w-100" 
+                 style="height: 450px; object-fit: cover; width: 100%;" 
+                 alt="{{ room.room_name }}">
+        </div>
+
+
+        <div class="card shadow-sm p-4 mb-4">
+            <h3 class="card-title">Description</h3>
+            <p>{{ room.description|safe }}</p>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Details</h5>
+                    <ul class="list-unstyled">
+                        <li><strong>Room Number:</strong> {{ room.room_number }}</li>
+                        <li><strong>Max Guests:</strong> {{ room.max_guests }}</li>
+                        <li><strong>Price:</strong> ${{ room.price_per_night }} / night</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-booking">
+            <div class="card-header">
+                Book This Room
+            </div>
+            <div class="card-body">
+                <h4 class="text-center mb-4">${{ room.price_per_night }} <small class="text-muted">/ night</small></h4>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'book_room' room.pk %}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_check_in_date" class="form-label">Check-in Date</label>
+                            <input type="date" class="form-control" id="id_check_in_date" name="check_in_date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_check_out_date" class="form-label">Check-out Date</label>
+                            <input type="date" class="form-control" id="id_check_out_date" name="check_out_date" required>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg w-100">Book Now</button>
+                    </form>
+                {% else %}
+                    <div class="alert alert-warning text-center" role="alert">
+                        Please <a href="{% url 'login' %}">login</a> to book this room.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

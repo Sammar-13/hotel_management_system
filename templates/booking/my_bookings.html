@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <h1 class="my-4 text-center">My Bookings</h1>
+        {% if bookings %}
+            <div class="list-group">
+                {% for booking in bookings %}
+                    <div class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm rounded">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ booking.room.room_name }} (Room #{{ booking.room.room_number }})</h5>
+                            <small class="text-muted">Booked on: {{ booking.created_at|date:"M d, Y" }}</small>
+                        </div>
+                        <p class="mb-1">Check-in: {{ booking.check_in_date|date:"M d, Y" }}</p>
+                        <p class="mb-1">Check-out: {{ booking.check_out_date|date:"M d, Y" }}</p>
+                        <p class="mb-1">Total Price: ${{ booking.total_price }}</p>
+                        <p class="mb-1">Status: 
+                            <span class="badge 
+                                {% if booking.booking_status == 'pending' %}bg-warning text-dark
+                                {% elif booking.booking_status == 'approved' %}bg-success
+                                {% elif booking.booking_status == 'cancelled' %}bg-danger
+                                {% endif %}">
+                                {{ booking.get_booking_status_display }}
+                            </span>
+                        </p>
+                        <div class="d-flex justify-content-end">
+                            {% if booking.booking_status == 'pending' %}
+                                <a href="{% url 'cancel_booking' booking.pk %}" class="btn btn-danger btn-sm me-2" onclick="return confirm('Are you sure you want to cancel this booking?')">Cancel Booking</a>
+                            {% endif %}
+                            {% if booking.booking_status != 'cancelled' %}
+                                <a href="{% url 'room_detail' booking.room.pk %}" class="btn btn-info btn-sm">View Room</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center" role="alert">
+                You have no bookings yet. <a href="{% url 'room_list' %}">Browse rooms</a> to make your first booking!
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
