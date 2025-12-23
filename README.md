@@ -8,7 +8,7 @@ This is a comprehensive, production-ready Python Django web application designed
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
-- [Superuser Credentials](#superuser-credentials)
+- [Admin Access](#admin-access)
 - [Media & Static Files](#media--static-files)
 - [Running the Application](#running-the-application)
 - [UI/UX & Design Notes](#uiux--design-notes)
@@ -151,21 +151,20 @@ Follow these steps to get the project up and running on your local machine.
     python manage.py migrate
     ```
 
-6.  **Create Superuser (Automated):**
-    A custom management command is provided to automatically create the superuser.
+6.  **Create Superuser:**
+    Create an administrative user to access the Django admin panel.
     ```bash
-    python manage.py createsuperuser_if_not_exists
+    python manage.py createsuperuser
     ```
 
-## Superuser Credentials
+### Admin Access
+For security reasons, admin (superuser) credentials are not included in this repository.
+Create a superuser locally using the following command:
 
-The automated superuser creation uses the following credentials:
+python manage.py createsuperuser
 
--   **Username**: `sammar`
--   **Email**: `sammarabbas9939@gmail.com`
--   **Password**: `9604959939`
-
-You can use these to log into the Django admin panel (`/admin/`).
+Then access the admin panel at:
+http://127.0.0.1:8000/admin/
 
 ## Media & Static Files
 
