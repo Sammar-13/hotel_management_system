@@ -3,14 +3,12 @@ from django.core.mail import send_mail
 from django.utils import timezone
 from .models import ContactInquiry, Feedback, Slider
 
-# Admin configuration for ContactInquiry model with reply functionality
 class ContactInquiryAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'subject', 'created_at', 'is_replied')
     search_fields = ('name', 'email', 'subject', 'message')
     list_filter = ()
     ordering = ('-created_at',)
     
-    # Define readonly fields and fieldsets for a better layout
     readonly_fields = ('name', 'email', 'subject', 'message', 'created_at', 'replied_at')
     
     fieldsets = (
@@ -23,12 +21,12 @@ class ContactInquiryAdmin(admin.ModelAdmin):
     )
 
     def save_model(self, request, obj, form, change):
-        # Check if a reply was added in this save action
+       
         if obj.admin_reply and 'admin_reply' in form.changed_data:
             obj.is_replied = True
             obj.replied_at = timezone.now()
 
-            # Prepare and send the email
+
             subject = f"Reply to your inquiry: '{obj.subject}'"
             body = (
                 f"Hi {obj.name},\n\n"

@@ -1,0 +1,1 @@
+web: gunicorn hotel_miramar_sg.wsgi --log-file -
