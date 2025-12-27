@@ -1,11 +1,9 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls static %}
-
 {% block extrahead %}
     {{ block.super }}
     {{ media }}
 {% endblock %}
-
 {% block breadcrumbs %}
 <div class="breadcrumbs">
 <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
@@ -14,10 +12,8 @@
 &rsaquo; {% translate 'Send Email' %}
 </div>
 {% endblock %}
-
 {% block content %}
 <h1>Send Email to {{ queryset.count }} User{{ queryset.count|pluralize }}</h1>
-
 {% if users_without_email %}
     <div class="errornote">
         <p><strong>Warning:</strong> The following users do not have an email address and will be skipped:</p>
@@ -28,7 +24,6 @@
         </ul>
     </div>
 {% endif %}
-
 <form action="" method="post">
     {% csrf_token %}
     {% for obj in queryset %}
@@ -36,7 +31,6 @@
     {% endfor %}
     <input type="hidden" name="action" value="send_email_action">
     <input type="hidden" name="post" value="yes">
-
     <fieldset class="module aligned">
         {% for field in form %}
         <div class="form-row">
@@ -51,7 +45,6 @@
         </div>
         {% endfor %}
     </fieldset>
-
     <div class="submit-row">
         <input type="submit" value="Send Email" class="default">
         <a href="{% url 'admin:users_user_changelist' %}" class="button cancel-link" style="float: right;">Cancel</a>

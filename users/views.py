@@ -7,7 +7,6 @@ from .forms import UserRegisterForm, UserUpdateForm, UserProfileForm, UserLoginF
 from .models import UserProfile, User
 from smtplib import SMTPException
 import socket
-
 def register(request):
     if request.method == 'POST':
         user_form = UserRegisterForm(request.POST)
@@ -24,9 +23,7 @@ def register(request):
                     messages.error(request, f'{field.replace("_", " ").title()}: {error}')
     else:
         user_form = UserRegisterForm()
-
     return render(request, 'users/register.html', {'user_form': user_form})
-
 def user_login(request):
     if request.method == 'POST':
         form = UserLoginForm(request, data=request.POST)
@@ -45,14 +42,12 @@ def user_login(request):
     else:
         form = UserLoginForm()
     return render(request, 'users/login.html', {'form': form})
-
 @login_required
 def user_logout(request):
     if request.method == 'POST':
         logout(request)
         messages.info(request, 'You have been logged out.')
     return redirect('home')
-
 @login_required
 def profile(request):
     try:
@@ -60,14 +55,12 @@ def profile(request):
     except UserProfile.DoesNotExist:
         user_profile = UserProfile.objects.create(user=request.user)
     return render(request, 'users/profile.html', {'user_profile': user_profile})
-
 @login_required
 def profile_update(request):
     try:
         user_profile = request.user.userprofile
     except UserProfile.DoesNotExist:
         user_profile = UserProfile.objects.create(user=request.user)
-
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
@@ -87,23 +80,19 @@ def profile_update(request):
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = UserProfileForm(instance=user_profile)
-    
     context = {
         'user_form': user_form,
         'profile_form': profile_form,
     }
     return render(request, 'users/profile_update.html', context)
-
 class CustomPasswordResetView(PasswordResetView):
     form_class = CustomPasswordResetForm
     template_name = 'registration/password_reset_form.html'
     subject_template_name = 'registration/password_reset_subject.txt'
-    
     def form_valid(self, form):
         try:
             return super().form_valid(form)
         except (SMTPException, socket.error, OSError) as e:
-            # Log the error for admin/debugging
             print(f"EMAIL SENDING ERROR: {e}")
             messages.error(self.request, "There was an error sending the email. Please check your network connection or try again later.")
             return self.render_to_response(self.get_context_data(form=form))

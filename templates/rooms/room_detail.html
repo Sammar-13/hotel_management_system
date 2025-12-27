@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block title %}{{ room.room_name }} - Room Details{% endblock %}
-
 {% block content %}
 <style>
     /* Custom styles for room detail page */
@@ -19,20 +17,15 @@
         border-top-right-radius: 10px;
     }
 </style>
-
 <div class="row mt-4">
     <div class="col-md-8">
         <h1 class="mb-4">{{ room.room_name }} <span class="badge bg-info text-dark">{{ room.room_type }}</span></h1>
-        
-        <!-- Room Main Image -->
         <div class="mb-4">
             <img src="{% if room.image %}{{ room.image.url }}{% else %}{% static 'images/default_room_detail.jpg' %}{% endif %}" 
                  class="img-fluid rounded w-100" 
                  style="height: 450px; object-fit: cover; width: 100%;" 
                  alt="{{ room.room_name }}">
         </div>
-
-
         <div class="card shadow-sm p-4 mb-4">
             <h3 class="card-title">Description</h3>
             <p>{{ room.description|safe }}</p>
@@ -49,7 +42,6 @@
             </div>
         </div>
     </div>
-
     <div class="col-md-4">
         <div class="card card-booking">
             <div class="card-header">
@@ -80,6 +72,5 @@
     </div>
 </div>
 {% endblock %}
-
 {% block extra_js %}
 {% endblock %}

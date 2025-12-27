@@ -1,27 +1,21 @@
-/* Custom Admin Styles for Hotel Miramar SG */
-
-/* Base Dark Theme */
 :root {
-    --bg-main: #282c34; /* Dark background */
-    --bg-card: #3a404a; /* Slightly lighter card background */
-    --text-primary: #e0e0e0; /* Light text */
-    --text-secondary: #a0a0a0; /* Secondary text */
+    --bg-main: #282c34; 
+    --bg-card: #3a404a; 
+    --text-primary: #e0e0e0; 
+    --text-secondary: #a0a0a0; 
     --border-color: #555;
-    --primary-color: #a37c4d; /* Gold/Bronze accent */
+    --primary-color: #a37c4d; 
     --primary-hover: #8c6a3f;
     --success-color: #28a745;
     --danger-color: #dc3545;
-    --link-color: #61afef; /* Light blue for links */
+    --link-color: #61afef; 
     --link-hover: #98c379;
 }
-
 body {
     background-color: var(--bg-main);
     color: var(--text-primary);
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
-
-/* General Admin Layout */
 #header {
     background: var(--bg-card);
     border-bottom: 1px solid var(--border-color);
@@ -33,23 +27,18 @@ body {
 #header a:hover {
     color: var(--link-hover);
 }
-
 .module h2, .module caption, .dashboard caption {
     background: var(--bg-card);
     color: var(--text-primary);
     border-bottom: 1px solid var(--border-color);
 }
-
 .module h2 a, .module caption a {
     color: var(--text-primary);
 }
-
 .dashboard .module table th {
     background: var(--bg-card);
     border-bottom: 1px solid var(--border-color);
 }
-
-/* Sidebar / Nav */
 #nav-sidebar {
     background-color: var(--bg-card);
     border-right: 1px solid var(--border-color);
@@ -71,9 +60,6 @@ body {
 #nav-sidebar .module.current-model .model-label a {
     color: #fff;
 }
-
-
-/* Forms */
 .form-row {
     padding: 10px 0;
     border-bottom: 1px solid var(--border-color);
@@ -98,8 +84,6 @@ body {
     box-shadow: 0 0 0 3px rgba(var(--primary-color), 0.3);
     outline: none;
 }
-
-/* Tables */
 .changelist-form .results table {
     border: 1px solid var(--border-color);
 }
@@ -113,10 +97,10 @@ body {
     border-bottom: 1px solid var(--border-color);
 }
 .changelist-form .results table tbody tr:nth-child(even) {
-    background: #31353b; /* Alternate row color */
+    background: #31353b; 
 }
 .changelist-form .results table tbody tr:hover {
-    background: #4a505c; /* Hover effect for rows */
+    background: #4a505c; 
 }
 .changelist-form .results table tbody td {
     color: var(--text-primary);
@@ -128,8 +112,6 @@ body {
 .changelist-form .results table tbody td a:hover {
     color: var(--link-hover);
 }
-
-/* Buttons */
 .button, input[type="submit"], input[type="button"], .submit-row input[type="submit"] {
     background-color: var(--primary-color);
     color: #fff;
@@ -143,29 +125,24 @@ body {
     background-color: var(--primary-hover);
     transform: translateY(-1px);
 }
-
 .button.default {
     background-color: var(--primary-color);
 }
 .button.default:hover {
     background-color: var(--primary-hover);
 }
-
 .button.addlink, .addlink {
     background-color: var(--success-color);
 }
 .button.addlink:hover, .addlink:hover {
     background-color: #218838;
 }
-
 .button.deletelink {
     background-color: var(--danger-color);
 }
 .button.deletelink:hover {
     background-color: #c82333;
 }
-
-/* Search bar and filters */
 .search-form input[type="text"], .action-form select,
 .actions select {
     background-color: #3f444c;
@@ -180,12 +157,9 @@ body {
 .search-form input[type="submit"]:hover {
     background-color: var(--primary-hover);
 }
-
 .object-tools li a {
     color: var(--link-color);
 }
-
-/* Pagination */
 .paginator a {
     color: var(--link-color);
 }
@@ -196,8 +170,6 @@ body {
 .paginator a:hover {
     background-color: var(--primary-hover);
 }
-
-/* Messages */
 .messagelist li {
     background-color: var(--bg-card);
     color: var(--text-primary);
@@ -220,13 +192,9 @@ body {
     border-color: #17a2b8;
     color: #17a2b8;
 }
-
-/* Custom header for site_header */
 #site-name a {
     color: var(--text-primary) !important;
 }
-
-/* Breadcrumbs */
 .breadcrumbs {
     background: var(--bg-card);
     border-bottom: 1px solid var(--border-color);
@@ -238,25 +206,17 @@ body {
 .breadcrumbs a:hover {
     color: var(--link-hover);
 }
-
-/* Action checkboxes */
 .actionlist input[type="checkbox"] {
     margin-right: 5px;
 }
-
-/* Hide the right-side filter panel and actions */
 .changelist-filter, .actions {
     display: none !important;
 }
-
-/* Footer */
 #footer {
     background: var(--bg-card);
     border-top: 1px solid var(--border-color);
     color: var(--text-secondary);
 }
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
     #nav-sidebar {
         width: 100%;
@@ -268,15 +228,12 @@ body {
         margin-left: 0;
     }
 }
-
-/* Custom Dashboard Styles */
 .main-dashboard-modules {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     margin-top: 20px;
 }
-
 .dashboard-module {
     background: var(--bg-card);
     border-radius: 8px;
@@ -284,12 +241,10 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .dashboard-module:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
-
 .dashboard-module-header {
     background: rgba(0, 0, 0, 0.3);
     color: var(--text-primary);
@@ -297,14 +252,11 @@ body {
     font-size: 1.2em;
     border-bottom: 1px solid var(--border-color);
 }
-
 .dashboard-module-content {
     padding: 15px 20px;
     display: flex;
     flex-direction: column;
 }
-
-/* Unified Dashboard Link Styling */
 #content-main .dashboard-link,
 .dashboard-module-content a,
 .app-list a,
@@ -321,26 +273,21 @@ body {
     transition: all 0.2s ease;
     cursor: pointer;
 }
-
 #content-main .dashboard-link:last-child,
 .dashboard-module-content a:last-child {
     border-bottom: none;
 }
-
 #content-main .dashboard-link:hover,
 .dashboard-module-content a:hover,
 .app-list a:hover,
 .module a:hover {
     color: var(--link-hover) !important;
     background-color: rgba(var(--primary-color), 0.1) !important;
-    padding-left: 8px !important; /* Smooth cursor movement effect */
+    padding-left: 8px !important; 
     text-decoration: none;
 }
-
 .dashboard-link span,
 .dashboard-module-content a span {
     margin-right: 10px;
     font-size: 1.2em;
 }
-
-/* Ensure consistent container padding by removing conflicting overrides */

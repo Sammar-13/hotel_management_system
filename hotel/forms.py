@@ -1,6 +1,5 @@
 from django import forms
 from .models import ContactInquiry, Feedback
-
 class ContactForm(forms.ModelForm):
     class Meta:
         model = ContactInquiry
@@ -11,7 +10,6 @@ class ContactForm(forms.ModelForm):
             'subject': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Subject'}),
             'message': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Your Message'}),
         }
-
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback

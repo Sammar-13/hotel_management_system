@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('hotel.urls')),
@@ -11,7 +10,6 @@ urlpatterns = [
     path('rooms/', include('rooms.urls')),
     path('booking/', include('booking.urls')),
 ]
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # This might be redundant if STATICFILES_DIRS is used.
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 

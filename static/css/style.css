@@ -1,101 +1,80 @@
 html {
-    height: 100%; /* Ensures html takes full height, necessary for sticky footer */
+    height: 100%; 
 }
-
-/* Custom styles for Hotel Miramar SG */
-
 body {
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
     color: #333;
     background-color: #f8f9fa;
 }
-
 .navbar {
     border-bottom: 3px solid #007bff;
 }
-
 .navbar-brand {
     font-weight: bold;
     font-size: 1.8rem;
     color: #fff !important;
 }
-
 .nav-link {
     color: rgba(255, 255, 255, 0.75) !important;
     transition: color 0.3s ease-in-out;
 }
-
 .nav-link:hover {
     color: #fff !important;
 }
-
 .footer {
     background-color: #343a40;
     color: #f8f9fa;
     padding: 30px 0;
-    /* margin-top: 50px; <-- REMOVED: Conflicted with sticky footer Flexbox */
 }
-
 .card {
     border: none;
     border-radius: 8px;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
-
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-
 .btn-primary {
     background-color: #007bff;
     border-color: #007bff;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-
 .btn-primary:hover {
     background-color: #0056b3;
     border-color: #0056b3;
 }
-
 .btn-success {
     background-color: #28a745;
     border-color: #28a745;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-
 .btn-success:hover {
     background-color: #218838;
     border-color: #1e7e34;
 }
-
 .form-control {
     border-radius: 5px;
 }
-
 .alert-success {
     background-color: #d4edda;
     color: #155724;
     border-color: #c3e6cb;
 }
-
 .alert-danger {
     background-color: #f8d7da;
     color: #721c24;
     border-color: #f5c6cb;
 }
-
 .alert-info {
     background-color: #d1ecf1;
     color: #0c5460;
     border-color: #bee5eb;
 }
-
-/* Hero section specific styles */
 .hero-section {
     position: relative;
-    height: 90vh; /* Full viewport height */
+    height: 90vh; 
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -103,45 +82,37 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: #ffffff; /* Solid white for better visibility */
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* Stronger text shadow */
-    z-index: 0; /* Base layer */
-    /* Ensure pointer events are active on the hero section for button clicks */
+    color: #ffffff; 
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); 
+    z-index: 0; 
     pointer-events: auto;
 }
-
 .hero-section::before {
     content: "";
     position: absolute;
     inset: 0;
-    /* Subtle dark gradient overlay for a luxury feel */
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
-    z-index: 1; /* Above background image, below content */
-    pointer-events: none; /* Allow clicks to pass through to elements below */
+    z-index: 1; 
+    pointer-events: none; 
 }
-
 .hero-content {
     position: relative;
-    z-index: 2; /* Ensure content is always above the overlay */
+    z-index: 2; 
     max-width: 800px;
     padding: 20px;
 }
-
 .hero-content h1 {
-    font-size: 3.8rem; /* Slightly larger heading */
-    font-weight: 700; /* Stronger font weight */
+    font-size: 3.8rem; 
+    font-weight: 700; 
     margin-bottom: 1.5rem;
 }
-
 .hero-content p {
-    font-size: 1.6rem; /* Slightly larger subtitle */
+    font-size: 1.6rem; 
     font-weight: 400;
     margin-bottom: 2.5rem;
 }
-
-/* Custom button styles for luxury feel */
 .hero-content .btn-primary {
-    background-color: #a37c4d; /* Gold/bronze tone for luxury */
+    background-color: #a37c4d; 
     border-color: #a37c4d;
     padding: 15px 35px;
     font-size: 1.2rem;
@@ -149,55 +120,38 @@ body {
     border-radius: 5px;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
 }
-
 .hero-content .btn-primary:hover {
-    background-color: #8c6a3f; /* Darker tone on hover */
+    background-color: #8c6a3f; 
     border-color: #8c6a3f;
-    transform: translateY(-2px); /* Subtle lift effect */
+    transform: translateY(-2px); 
 }
-
 @media (max-width: 768px) {
     .hero-section {
         height: 70vh;
     }
-
     .hero-content h1 {
         font-size: 2.8rem;
     }
-
     .hero-content p {
         font-size: 1.3rem;
     }
-
     .hero-content .btn-primary {
         padding: 12px 30px;
         font-size: 1rem;
     }
 }
-
-/* === START: Production-Ready Room Card CSS === */
-
-/*
-  ROOT CAUSE FIX: Overriding Bootstrap's default card behavior with a pure,
-  strict Flexbox model to prevent height calculation and overflow bugs.
-*/
-
 .col.d-flex {
-    /* Ensures the Bootstrap column is a flex container for the h-100 card */
     display: flex;
 }
-
 .room-card {
-    width: 100%; /* Ensure card takes full width of the column */
-    height: 100%; /* Fills the height of the .col parent */
-    display: flex !important; /* IMPORTANT: Override Bootstrap's .card */
+    width: 100%; 
+    height: 100%; 
+    display: flex !important; 
     flex-direction: column !important;
     border: 1px solid #dee2e6;
     border-radius: 8px;
     overflow: hidden;
 }
-
-/* 1. Fixed-height, non-shrinking image container */
 .room-card-img-container {
     height: 200px;
     flex-shrink: 0;
@@ -210,28 +164,21 @@ body {
     height: 100%;
     object-fit: cover;
 }
-
-/* 2. Expanding card body */
 .room-card .card-body {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* This is CRITICAL for pushing the footer down */
+    flex-grow: 1; 
     padding: 1rem;
 }
-
-/* 3. Content that is pushed to the bottom of the card body */
 .room-card .amenities-section {
-    margin-top: auto; /* MANDATORY: This pushes the element to the bottom */
+    margin-top: auto; 
     padding-top: 1rem;
     border-top: 1px solid #dee2e6;
 }
-
 .room-card .amenity-icon {
     font-size: 1.1rem;
     margin-right: 0.5rem;
 }
-
-/* 4. Non-shrinking card footer, always at the bottom */
 .room-card .card-footer {
     flex-shrink: 0;
     background-color: #fff;
@@ -241,17 +188,11 @@ body {
     justify-content: space-between;
     align-items: center;
 }
-
 .room-card .price {
     font-size: 1.25rem;
     font-weight: bold;
     color: #0d6efd;
 }
-
-/* === END: Production-Ready Room Card CSS === */
-
-
-/* Sidebar Styles */
 .filter-sidebar {
     background-color: #f8f9fa;
     padding: 20px;
@@ -262,13 +203,9 @@ body {
     color: #333;
     margin-bottom: 20px;
 }
-
-/* --- Active Navbar Link Highlight --- */
 .navbar-nav .nav-item.active .nav-link {
-    background-color: rgba(255, 255, 255, 0.1); /* Subtle background */
+    background-color: rgba(255, 255, 255, 0.1); 
     font-weight: bold;
-    color: #fff !important; /* Ensure text color stays white */
+    color: #fff !important; 
     border-radius: 5px;
 }
-
-

@@ -1,16 +1,12 @@
 from django.db import models
 from django.utils import timezone
-
 class Amenity(models.Model):
     name = models.CharField(max_length=100)
-    icon = models.CharField(max_length=100, blank=True, null=True) # e.g., 'wifi', 'tv', 'ac'
-
+    icon = models.CharField(max_length=100, blank=True, null=True) 
     class Meta:
         verbose_name_plural = "Amenities"
-
     def __str__(self):
         return self.name
-
 class Room(models.Model):
     ROOM_TYPE_CHOICES = (
         ('Single', 'Single'),
@@ -25,10 +21,7 @@ class Room(models.Model):
     description = models.TextField()
     max_guests = models.IntegerField(default=1)
     amenities = models.ManyToManyField(Amenity, blank=True)
-    image = models.ImageField(upload_to='rooms/', blank=True, null=True) # Main image for the room listing
+    image = models.ImageField(upload_to='rooms/', blank=True, null=True) 
     created_at = models.DateTimeField(default=timezone.now)
-
     def __str__(self):
         return f"{self.room_name} ({self.room_type} - {self.room_number})"
-
-

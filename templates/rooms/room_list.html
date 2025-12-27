@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block title %}Our Rooms{% endblock %}
-
 {% block content %}
 <div class="row mt-4">
     <div class="col-md-3">
@@ -20,19 +18,16 @@
                         {% endfor %}
                     </select>
                 </div>
-
                 <div class="mb-3">
                     <label for="min_price" class="form-label">Min Price</label>
                     <input type="number" class="form-control" id="min_price" name="min_price"
                            value="{{ selected_min_price }}">
                 </div>
-
                 <div class="mb-3">
                     <label for="max_price" class="form-label">Max Price</label>
                     <input type="number" class="form-control" id="max_price" name="max_price"
                            value="{{ selected_max_price }}">
                 </div>
-
                 <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
                 <a href="{% url 'room_list' %}" class="btn btn-outline-secondary w-100 mt-2">
                     Clear Filters
@@ -40,57 +35,43 @@
             </form>
         </div>
     </div>
-
     <div class="col-md-9">
         <h1 class="mb-4 text-center">Our Rooms</h1>
-
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             {% for room in rooms %}
                 <div class="col d-flex">
                     <div class="card shadow-sm room-card w-100 d-flex flex-column">
-
-                        <!-- Room Image -->
                         <div class="room-card-img-container" style="height: 200px; overflow: hidden;">
                             <img src="{% if room.image %}{{ room.image.url }}{% else %}{% static 'images/default_room.jpg' %}{% endif %}"
                                  alt="{{ room.room_name }}" 
                                  class="img-fluid"
                                  style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
-
-                        <!-- Card Body -->
                         <div class="card-body">
                             <h5 class="card-title">
                                 {{ room.room_name }}
                                 <span class="badge bg-info text-dark">{{ room.room_type }}</span>
                             </h5>
-
                             <p class="card-text text-muted">
                                 Room No: {{ room.room_number }} | Max Guests: {{ room.max_guests }}
                             </p>
-
                         </div>
-
-                        <!-- FOOTER -->
                         <div class="card-footer text-center mt-auto">
                             <div class="price mb-2">
                                 ${{ room.price_per_night }}
                                 <small class="text-muted">/night</small>
                             </div>
-
                             <div class="d-grid gap-2">
                                 <a href="{% url 'room_detail' room.pk %}"
                                    class="btn btn-outline-primary btn-sm">
                                     View Details
                                 </a>
-
-                                <!-- ✅ GREEN BOOK NOW BUTTON -->
                                 <a href="{% url 'book_room' room.pk %}"
                                    class="btn btn-success btn-sm">
                                     Book Now
                                 </a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             {% empty %}

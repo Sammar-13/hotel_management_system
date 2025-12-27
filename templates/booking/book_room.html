@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block title %}Book Room: {{ room.room_name }}{% endblock %}
-
 {% block content %}
 <div class="row justify-content-center mt-4">
     <div class="col-md-8">
@@ -12,7 +10,6 @@
                 <img src="{% if room.image %}{{ room.image.url }}{% else %}{% static 'images/default_room.jpg' %}{% endif %}" class="img-fluid rounded" alt="{{ room.room_name }}" style="width: 100%; max-height: 300px; object-fit: cover;">
                 <p class="lead mt-3">Price: ${{ room.price_per_night }} / night</p>
             </div>
-            
             <form method="post" action="{% url 'book_room' room.pk %}">
                 {% csrf_token %}
                 <div class="mb-3">

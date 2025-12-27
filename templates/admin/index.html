@@ -1,12 +1,8 @@
 {% extends "admin/base_site.html" %}
 {% load i18n static %}
-
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static 'admin/css/dashboard.css' %}">{% endblock %}
-
 {% block coltype %}colMS{% endblock %}
-
 {% block bodyclass %}{{ block.super }} dashboard{% endblock %}
-
 {% block content %}
 <div id="content-main">
     <div class="main-dashboard-modules">
@@ -27,7 +23,6 @@
                 </a>
             </div>
         </div>
-
         {% if app_list %}
             {% for app in app_list %}
                 {% if app.app_label != 'auth' %}
@@ -57,7 +52,6 @@
     </div>
 </div>
 {% endblock %}
-
 {% block sidebar %}
     <div id="content-related">
         <div class="module" id="recent-actions-module">

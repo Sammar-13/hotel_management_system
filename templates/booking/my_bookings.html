@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
-
 {% block title %}My Bookings{% endblock %}
-
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-10">
@@ -9,7 +7,16 @@
         {% if bookings %}
             <div class="list-group">
                 {% for booking in bookings %}
-                    <div class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm rounded">
+                    <div id="booking-card-{{ booking.id }}" class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm rounded">
+                        {% if booking.booking_status == 'cancelled' %}
+                        <div class="alert alert-danger d-flex justify-content-between align-items-center mb-2" role="alert">
+                            <div>
+                                <strong>Your booking has been cancelled due to some reason.</strong><br>
+                                <small>Sorry for the inconvenience. Please contact us if you have any queries.</small>
+                            </div>
+                            <button type="button" class="btn-close" aria-label="Close" onclick="dismissBooking({{ booking.id }})"></button>
+                        </div>
+                        {% endif %}
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{ booking.room.room_name }} (Room #{{ booking.room.room_number }})</h5>
                             <small class="text-muted">Booked on: {{ booking.created_at|date:"M d, Y" }}</small>
@@ -44,4 +51,52 @@
         {% endif %}
     </div>
 </div>
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function dismissBooking(bookingId) {
+        const url = `/booking/dismiss_booking/${bookingId}/`;
+        const csrftoken = getCookie('csrftoken');
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => {
+            if (response.ok) {
+                // Animate removal
+                const card = document.getElementById(`booking-card-${bookingId}`);
+                card.style.transition = "all 0.5s ease";
+                card.style.opacity = 0;
+                setTimeout(() => {
+                    card.remove();
+                    // Check if list is empty, reload or show empty message if needed
+                    const listGroup = document.querySelector('.list-group');
+                    if (listGroup && listGroup.children.length === 0) {
+                        location.reload(); 
+                    }
+                }, 500);
+            } else {
+                console.error('Failed to dismiss booking');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
 {% endblock %}
