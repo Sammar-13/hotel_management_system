@@ -13,3 +13,5 @@ staticfiles/
 venv/
 env/
 .venv/
+
+.vercel
