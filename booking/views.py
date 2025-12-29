@@ -8,7 +8,10 @@ from rooms.models import Room
 from .forms import BookingForm
 from django.db.models import Q
 from datetime import date
+from dashboard.decorators import user_required
+
 @login_required
+@user_required
 def book_room(request, room_id):
     room = get_object_or_404(Room, id=room_id)
     if request.method == 'POST':
@@ -41,13 +44,17 @@ def book_room(request, room_id):
     else:
         form = BookingForm()
     return render(request, 'booking/book_room.html', {'room': room, 'form': form})
+
 @login_required
+@user_required
 def my_bookings(request):
     bookings = Booking.objects.filter(user=request.user)\
         .exclude(booking_status='cancelled', user_dismissed=True)\
         .order_by('-created_at')
     return render(request, 'booking/my_bookings.html', {'bookings': bookings})
+
 @login_required
+@user_required
 def cancel_booking(request, pk):
     booking = get_object_or_404(Booking, pk=pk, user=request.user)
     if booking.booking_status == 'pending':
@@ -57,8 +64,10 @@ def cancel_booking(request, pk):
     else:
         messages.error(request, 'Bookings that are not pending cannot be cancelled via this page.')
     return redirect('my_bookings')
+
 @login_required
 @require_POST
+@user_required
 def dismiss_booking(request, pk):
     booking = get_object_or_404(Booking, pk=pk, user=request.user)
     if booking.booking_status == 'cancelled':

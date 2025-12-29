@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     'users',
     'rooms',
     'booking',
+    'dashboard',
 ]
 AUTH_USER_MODEL = 'users.User'
 MIDDLEWARE = [

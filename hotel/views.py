@@ -4,6 +4,9 @@ from .forms import ContactForm, FeedbackForm
 from rooms.models import Room
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from dashboard.decorators import user_required
+
+@user_required
 def home(request):
     sliders = Slider.objects.filter(is_active=True)
     rooms = Room.objects.all()[:3] 
@@ -12,8 +15,12 @@ def home(request):
         'rooms': rooms,
     }
     return render(request, 'hotel/home.html', context)
+
+@user_required
 def about(request):
     return render(request, 'hotel/about.html')
+
+@user_required
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -24,7 +31,9 @@ def contact(request):
     else:
         form = ContactForm()
     return render(request, 'hotel/contact.html', {'form': form})
+
 @login_required
+@user_required
 def feedback(request):
     if request.method == 'POST':
         form = FeedbackForm(request.POST)

@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Room, Amenity
 from django.db.models import Q
+from dashboard.decorators import user_required
+
+@user_required
 def room_list(request):
     query = request.GET.get('q')
     room_type = request.GET.get('room_type')
@@ -24,6 +27,8 @@ def room_list(request):
         'selected_max_price': max_price,
     }
     return render(request, 'rooms/room_list.html', context)
+
+@user_required
 def room_detail(request, pk):
     room = get_object_or_404(Room, pk=pk)
     context = {

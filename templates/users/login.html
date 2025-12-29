@@ -1,31 +1,221 @@
 {% extends 'base.html' %}
-{% block title %}Login{% endblock %}
+{% load static %}
+
+{% block title %}Login | Hotel Miramar SG{% endblock %}
+
+{% block extra_head %}
+<style>
+    /* Premium Login Page Styles */
+    
+    /* Override body background for a premium feel */
+    body {
+        background: linear-gradient(135deg, #f0f2f5 0%, #d9e2ec 100%) !important;
+        min-height: 100vh;
+        font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    /* Wrapper to center content perfectly */
+    .login-wrapper {
+        min-height: 85vh; /* Taller viewport coverage */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 1rem;
+    }
+
+    /* Card Styling - Clean & Professional */
+    .login-card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08); /* Soft, deep shadow */
+        background: #ffffff;
+        width: 100%;
+        max-width: 450px; /* Slightly wider for better spacing */
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .login-card-header {
+        background: transparent;
+        border: none;
+        padding: 2.5rem 2rem 1rem;
+        text-align: center;
+    }
+
+    .login-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1a202c; /* Darker, sharper text */
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.5px;
+    }
+
+    .login-subtitle {
+        color: #718096;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    .login-card-body {
+        padding: 1rem 2.5rem 2.5rem;
+    }
+
+    /* Input Fields */
+    .login-form .form-control,
+    .login-form input[type="text"],
+    .login-form input[type="password"] {
+        height: 50px; /* Taller inputs */
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 0 1.25rem;
+        font-size: 1rem;
+        background-color: #f8fafc;
+        transition: all 0.2s ease-in-out;
+        width: 100%;
+        display: block;
+    }
+
+    .login-form .form-control:focus,
+    .login-form input[type="text"]:focus,
+    .login-form input[type="password"]:focus {
+        border-color: #007bff; /* Primary Blue */
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1); /* Soft blue glow */
+        outline: none;
+    }
+
+    .login-form label {
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+        display: block;
+    }
+
+    .mb-4 {
+        margin-bottom: 1.5rem !important;
+    }
+
+    /* Primary Button */
+    .btn-login {
+        height: 50px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+        color: #ffffff;
+        transition: all 0.2s ease;
+        width: 100%;
+        margin-top: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+    }
+
+    .btn-login:hover {
+        background-color: #0056b3;
+        box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+        transform: translateY(-1px);
+    }
+
+    .btn-login:active {
+        transform: translateY(0);
+        background-color: #004085;
+    }
+
+    /* Links */
+    .login-footer-links {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 1.5rem;
+    }
+
+    .login-link {
+        color: #007bff;
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .login-link:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    .register-link {
+        font-weight: 600;
+        color: #007bff;
+        text-decoration: none;
+    }
+    
+    .register-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Error Messages */
+    .error-feedback {
+        color: #e53e3e;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Ensure content-wrap doesn't break layout */
+    #content-wrap {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card shadow-sm p-4 mt-5">
-            <h1 class="card-title text-center mb-4">Login</h1>
-            <form method="post">
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="login-card-header">
+            <h1 class="login-title">Welcome Back</h1>
+            <p class="login-subtitle">Sign in to access your dashboard</p>
+        </div>
+        
+        <div class="login-card-body">
+            <form method="post" class="login-form">
                 {% csrf_token %}
                 {% for field in form %}
-                    <div class="mb-3">
-                        {{ field.label_tag }}
+                    <div class="mb-4">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                         {{ field }}
                         {% if field.errors %}
-                            <div class="text-danger">
+                            <div class="error-feedback">
                                 {% for error in field.errors %}
-                                    <small>{{ error }}</small>
+                                    <span><i class="bi bi-exclamation-circle-fill me-2"></i>{{ error }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
                     </div>
                 {% endfor %}
-                <button type="submit" class="btn btn-primary w-100 btn-lg">Login</button>
-                <div class="text-center mt-2">
-                    <a href="{% url 'password_reset' %}" class="text-decoration-none">Forgot Password?</a>
+                
+                <div class="login-footer-links">
+                    <a href="{% url 'password_reset' %}" class="login-link">Forgot Password?</a>
                 </div>
+                
+                <button type="submit" class="btn btn-login">
+                    Sign In
+                </button>
             </form>
-            <p class="text-center mt-3">Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+            
+            <div class="text-center mt-4 pt-3 border-top">
+                <p class="text-muted mb-0">
+                    New here? 
+                    <a href="{% url 'register' %}" class="register-link">Create an account</a>
+                </p>
+            </div>
         </div>
     </div>
 </div>
