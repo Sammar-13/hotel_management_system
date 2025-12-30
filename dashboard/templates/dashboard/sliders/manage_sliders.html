@@ -32,6 +32,13 @@
                     {% endif %}
                 </td>
                 <td>
+                    <form action="{% url 'dashboard:toggle_slider_active' slider.pk %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm {% if slider.is_active %}btn-warning{% else %}btn-success{% endif %}" title="{% if slider.is_active %}Deactivate{% else %}Activate{% endif %}">
+                            <i class="bi {% if slider.is_active %}bi-dash-circle{% else %}bi-check-circle{% endif %}"></i>
+                        </button>
+                    </form>
+                    <a href="{% url 'dashboard:edit_slider' slider.pk %}" class="btn btn-sm btn-primary" title="Edit"><i class="bi bi-pencil"></i></a>
                     <a href="{% url 'dashboard:delete_slider' slider.pk %}" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>

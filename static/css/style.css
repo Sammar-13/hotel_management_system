@@ -125,8 +125,30 @@ body {
     border-color: #8c6a3f;
     transform: translateY(-2px); 
 }
+/* Carousel Styles */
+.hero-carousel {
+    height: 90vh;
+    background-color: #000;
+}
+.hero-carousel .carousel-inner,
+.hero-carousel .carousel-item {
+    height: 100%;
+}
+.hero-carousel .hero-section {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+.hero-carousel .carousel-caption {
+    bottom: 50%;
+    transform: translateY(50%);
+    padding-bottom: 0;
+    z-index: 2;
+}
+/* Ensure fallback hero works same as before */
 @media (max-width: 768px) {
-    .hero-section {
+    .hero-section, .hero-carousel {
         height: 70vh;
     }
     .hero-content h1 {

@@ -2,6 +2,40 @@
 {% load static %}
 {% block title %}Welcome to Hotel Miramar SG{% endblock %}
 {% block content %}
+
+{% if sliders %}
+<div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        {% for slider in sliders %}
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
+        {% endfor %}
+    </div>
+    <div class="carousel-inner">
+        {% for slider in sliders %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="hero-section" style="background-image: url('{{ slider.image.url }}');">
+                <div class="hero-overlay"></div>
+                <div class="hero-content text-white">
+                    <h1 class="display-3 fw-bold mb-3">{{ slider.title }}</h1>
+                    {% if slider.subtitle %}
+                        <p class="lead mb-4">{{ slider.subtitle }}</p>
+                    {% endif %}
+                    <a href="{% url 'room_list' %}" class="btn btn-primary btn-lg">View Rooms</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+{% else %}
 <section class="hero-section" style="background-image: url('{% static 'images/default_hero.jpg' %}');">
     <div class="hero-content">
         <h1 class="display-3 fw-bold mb-3">Experience Unmatched Luxury</h1>
@@ -9,6 +43,7 @@
         <a href="{% url 'room_list' %}" class="btn btn-primary btn-lg">View Rooms</a>
     </div>
 </section>
+{% endif %}
 <section class="py-5">
     <div class="container text-center">
         <h2 class="mb-4">Our Featured Rooms</h2>

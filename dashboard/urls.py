@@ -28,7 +28,9 @@ urlpatterns = [
     # Sliders
     path('sliders/', views.manage_sliders, name='manage_sliders'),
     path('sliders/add/', views.add_slider, name='add_slider'),
+    path('sliders/edit/<int:pk>/', views.edit_slider, name='edit_slider'),
     path('sliders/delete/<int:pk>/', views.delete_slider, name='delete_slider'),
+    path('sliders/toggle_active/<int:pk>/', views.toggle_slider_active, name='toggle_slider_active'),
     
     # Inquiries
     path('inquiries/', views.manage_inquiries, name='manage_inquiries'),

@@ -196,6 +196,19 @@ def add_slider(request):
     return render(request, 'dashboard/sliders/add_slider.html', {'form': form, 'title': 'Add New Slider'})
 
 @admin_required
+def edit_slider(request, pk):
+    slider = get_object_or_404(Slider, pk=pk)
+    if request.method == 'POST':
+        form = SliderForm(request.POST, request.FILES, instance=slider)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Slider updated successfully!')
+            return redirect('dashboard:manage_sliders')
+    else:
+        form = SliderForm(instance=slider)
+    return render(request, 'dashboard/sliders/add_slider.html', {'form': form, 'title': 'Edit Slider'})
+
+@admin_required
 def delete_slider(request, pk):
     slider = get_object_or_404(Slider, pk=pk)
     if request.method == 'POST':
@@ -203,6 +216,16 @@ def delete_slider(request, pk):
         messages.success(request, 'Slider deleted successfully!')
         return redirect('dashboard:manage_sliders')
     return render(request, 'dashboard/confirm_delete.html', {'object': slider, 'type': 'Slider'})
+
+@admin_required
+def toggle_slider_active(request, pk):
+    slider = get_object_or_404(Slider, pk=pk)
+    if request.method == 'POST':
+        slider.is_active = not slider.is_active
+        slider.save()
+        status = 'activated' if slider.is_active else 'deactivated'
+        messages.success(request, f'Slider "{slider.title}" has been {status}.')
+    return redirect('dashboard:manage_sliders')
 
 # --- Inquiry Management ---
 
